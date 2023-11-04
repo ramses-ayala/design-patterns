@@ -1,24 +1,29 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useState } from 'react';
+
+// HOC
+import Text from './patterns/hoc/components/textComponent/Text';
+import withLogOnMount from './patterns/hoc/components/withLogOnMount';
+
+import Dashboard from './patterns/hoc/components/dashboard/Dashboard';
+import withAuth from './patterns/hoc/components/withAuth';
 
 function App() {
+
+  const [isItAuthenticated, setIsItAuthenticated] = useState<Boolean>(false);
+
+  const MyComponent = withLogOnMount(Text);
+  const ComponentAuth = withAuth(Dashboard);
+
+  const toggleLogInLogOut = () => {
+    setIsItAuthenticated(!isItAuthenticated);
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Hello world</h1>
+      <MyComponent />
+      <button onClick={toggleLogInLogOut}>{isItAuthenticated ? 'Log out':'Log In'}</button>
+      <ComponentAuth isItAuthenticated={isItAuthenticated}/>
     </div>
   );
 }

@@ -1,11 +1,16 @@
 import { useState } from 'react';
 
 // HOC
-import Text from './patterns/hoc/components/textComponent/Text';
-import withLogOnMount from './patterns/hoc/components/withLogOnMount';
 
-import Dashboard from './patterns/hoc/components/dashboard/Dashboard';
+import withLogOnMount from './patterns/hoc/components/withLogOnMount';
 import withAuth from './patterns/hoc/components/withAuth';
+import withLogging from './patterns/hoc/components/withLogging';
+
+import Text from './patterns/hoc/components/textComponent/Text';
+import Dashboard from './patterns/hoc/components/dashboard/Dashboard';
+import FunctionalCounter from './patterns/hoc/components/functionalCounter/FunctionalCounter';
+
+
 
 function App() {
 
@@ -13,6 +18,7 @@ function App() {
 
   const MyComponent = withLogOnMount(Text);
   const ComponentAuth = withAuth(Dashboard);
+  const ComponentLogging = withLogging(FunctionalCounter);
 
   const toggleLogInLogOut = () => {
     setIsItAuthenticated(!isItAuthenticated);
@@ -24,6 +30,8 @@ function App() {
       <MyComponent />
       <button onClick={toggleLogInLogOut}>{isItAuthenticated ? 'Log out':'Log In'}</button>
       <ComponentAuth isItAuthenticated={isItAuthenticated}/>
+      <hr />
+      <ComponentLogging />
     </div>
   );
 }
